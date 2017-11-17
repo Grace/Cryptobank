@@ -8,14 +8,14 @@ Gem::Specification.new do |spec|
   spec.version       = Cryptobank::VERSION
   spec.authors       = ['Grace Christenbery']
   spec.email         = ['grace@gracefulco.de']
-  spec.summary       = 'A toolbox for working with cryptocurrencies.'
+  spec.summary       = 'A toolbox for working with cryptocurrencies. Cryptobank provides Ruby wrappers for the Bitcoin API JSON-RPC.'
   spec.homepage      = 'https://github.com/Grace/cryptobank'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   else
     raise 'RubyGems 2.0 or newer is required to protect against ' \
       'public gem pushes.'

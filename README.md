@@ -2,7 +2,7 @@
 
 Cryptobank provides Ruby wrappers for the Bitcoin API JSON-RPC.
 
-This gem is still in development. Please feel free to contribute and make a pull request. As the gem is called 'cryptobank', it will evole into a more general toolbox for working with crypocurrencies.
+This gem is still in development. Please feel free to contribute and make a pull request. As the gem is called 'cryptobank', it will evolve into a more general toolbox for working with crypocurrencies.
 
 
 ## Installation
@@ -31,8 +31,8 @@ end
 Bitcoind.configure do |config|
   config.host = '127.0.0.1' # default: 'localhost'
   config.port = 8332           # default: 8543
-  config.user = 'admin'         # default: 'rpcuser'
-  config.password = 'swordfish' # default: 'rpcpassword'
+  config.user = 'lion'         # default: 'rpcuser'
+  config.password = 'tiger' # default: 'rpcpassword'
 end
 
 Bitcoind.new_address #=> '14gnToPKhRKhRKXZHV4mJyu8N5EFAoFU6G'
@@ -52,7 +52,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/Cryptobank. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Grace/Cryptobank. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
