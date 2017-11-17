@@ -1,8 +1,9 @@
 # Cryptobank
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cryptobank`. To experiment with that code, run `bin/console` for an interactive prompt.
+Cryptobank provides Ruby wrappers for the Bitcoin API JSON-RPC.
 
-TODO: Delete this and the text above, and describe your gem
+This gem is still in development. Please feel free to contribute and make a pull request. As the gem is called 'cryptobank', it will evole into a more general toolbox for working with crypocurrencies.
+
 
 ## Installation
 
@@ -22,7 +23,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+class Bitcoind
+  extend Cryptobank
+end
+
+Bitcoind.configure do |config|
+  config.host = '127.0.0.1' # default: 'localhost'
+  config.port = 8332           # default: 8543
+  config.user = 'admin'         # default: 'rpcuser'
+  config.password = 'swordfish' # default: 'rpcpassword'
+end
+
+Bitcoind.new_address #=> '14gnToPKhRKhRKXZHV4mJyu8N5EFAoFU6G'
+
+account = "LolCat"
+Bitcoind.balance(account) #=> 3.73094258
+Bitcoind.get_account_addresses(account)
+```
+
+Please see lib/cryptobank/cryptobank.rb for the methods that are currently implemented.
 
 ## Development
 
@@ -41,3 +61,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Cryptobank project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/Cryptobank/blob/master/CODE_OF_CONDUCT.md).
+
+## Credit
+
+Credit goes to the gem 'Coinable' for inspiring this gem.

@@ -3,9 +3,7 @@ require 'httparty'
 require 'cryptobank/version'
 require 'cryptobank/error'
 
-module Cryptobank
-  module BitcoinCore
-    module RPC # Implements JSON-RPC to communicate with bitcoind
+module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
 
       HEADERS = {
         'Content-Type' => 'application/json',
@@ -469,5 +467,5 @@ module Cryptobank
     def url
       "http://#{user}:#{password}@#{host}:#{port}"
     end
-  end
+  # end
 end
