@@ -1,20 +1,26 @@
 PATH
   remote: .
   specs:
-    Cryptobank (0.1.0)
+    cryptobank (0.1.0)
+      httparty
 
 GEM
   remote: https://rubygems.org/
   specs:
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.6)
     minitest (5.10.3)
+    multi_xml (0.6.0)
     rake (10.5.0)
 
 PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  Cryptobank!
   bundler (~> 1.16)
+  cryptobank!
   minitest (~> 5.0)
   rake (~> 10.0)
 
