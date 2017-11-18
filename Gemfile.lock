@@ -1,16 +1,16 @@
 PATH
   remote: .
   specs:
-    cryptobank (0.1.0)
-      httparty
+    cryptobank (0.1.1)
+      httparty (~> 0.15.6)
+      json (~> 2.1.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.15.6)
       multi_xml (>= 0.5.2)
-    json (1.8.6)
+    json (2.1.0)
     minitest (5.10.3)
     multi_xml (0.6.0)
     rake (10.5.0)
