@@ -3,8 +3,7 @@ require 'httparty'
 require 'cryptobank/version'
 require 'cryptobank/error'
 
-module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
-
+module Cryptobank
   HEADERS = {
     'Content-Type' => 'application/json',
     'Accept' => 'application/json'
@@ -33,12 +32,8 @@ module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
   end
 
   # addmultisigaddress
-  def add_multisig_address(minimum_number_of_sigs, key_or_addresses, account = '')
-    payload = {
-      method: 'addmultisigaddress'
-    }
-    payload[:params] = [minimum_number_of_sigs.to_int, key_or_addresses.to_string, account.to_string]
-    request(payload)
+  def add_multisig_address
+    raise NotImplementedError
   end
 
   # addnode
@@ -87,8 +82,18 @@ module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
     request(payload)
   end
 
+  # getaccountaddress
+  def account_address
+    raise NotImplementedError
+  end
+
   # getaddednodeinfo
   def added_node_info
+    raise NotImplementedError
+  end
+
+  # getaddressesbyaccount
+  def addresses_by_account
     raise NotImplementedError
   end
 
@@ -108,69 +113,43 @@ module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
   end
 
   # getblock
-  def block(verbosity = nil)
-    payload = {
-      method: 'getblock'
-    }
-    payload[:params] = [template_request] unless verbosity.nil?
-    request(payload)
-  end
-
-  # getblockhash
-  def block_hash
-    payload = {
-      method: 'getblockhash'
-    }
-    request(payload)
+  def block
+    raise NotImplementedError
   end
 
   # getblockcount
   def block_count
-    payload = {
-      method: 'getblockcount'
-    }
-    request(payload)
+    raise NotImplementedError
+  end
+
+  # getblockhash
+  def block_hash
+    raise NotImplementedError
+  end
+
+  # getblocknumber
+  def block_number
+    raise NotImplementedError
   end
 
   # getblocktemplate
-  def block_template(template_request = nil)
-    payload = {
-      method: 'getblocktemplate'
-    }
-    payload[:params] = [template_request] unless template_request.nil?
-    request(payload)
+  def block_template
+    raise NotImplementedError
   end
 
   # getconnectioncount
   def connection_count
-    payload = {
-      method: 'getconnectioncount'
-    }
-    request(payload)
+    raise NotImplementedError
   end
 
   # getdifficulty
   def difficulty
-    payload = {
-      method: 'getdifficulty'
-    }
-    request(payload)
+    raise NotImplementedError
   end
 
   # getgenerate
   def generate
-    payload = {
-      method: 'getgenerate'
-    }
-    request(payload)
-  end
-
-  def get_account_addresses(account)
-    payload = {
-      method: 'getaddressesbyaccount'
-    }
-    payload[:params] = [account]
-    request(payload)
+    raise NotImplementedError
   end
 
   # gethashespersec
@@ -183,318 +162,283 @@ module Cryptobank # Implements Bitcoin API JSON-RPC to communicate with bitcoind
     payload = {
       method: 'getwalletinfo'
     }
+
     request(payload)
   end
 
-  # getmempoolinfo
-  def memory_pool_info
+  # getmemorypool
+  def memory_pool
+    raise NotImplementedError
+  end
+
+  # getmininginfo
+  def mining_info
+    raise NotImplementedError
+  end
+
+  # getnewaddress
+  def new_address(account = nil)
     payload = {
-      method: 'getmempoolinfo'
+      method: 'getnewaddress'
     }
+
+    payload[:params] = [account] unless account.nil?
+
     request(payload)
   end
-end
 
-# getmininginfo
-def mining_info
-  payload = {
-    method: 'getmininginfo'
-  }
-  request(payload)
-end
-
-# getnewaddress
-def new_address(account = nil)
-  payload = {
-    method: 'getnewaddress'
-  }
-  payload[:params] = [account] unless account.nil?
-  request(payload)
-end
-
-# getpeerinfo
-def peer_info
-  payload = {
-    method: 'getpeerinfo'
-  }
-  request(payload)
-end
-
-# getrawchangeaddress
-def raw_change_address
-  payload = {
-    method: 'getrawchangeaddress'
-  }
-  request(payload)
-end
-
-# getrawmempool
-def raw_mem_pool(verbose_format = false)
-  payload = {
-    method: 'getrawmempool'
-  }
-  payload[:params] = [1] if verbose_format?
-  request(payload)
-end
-
-# getrawtransaction
-# The TXID of the transaction to get, encoded as hex in RPC byte order
-def raw_transaction(txid)
-  payload = {
-    method: 'getrawtransaction'
-  }
-  payload[:params] = [txid]
-  request(payload)
-end
-
-# getreceivedbyaddress
-'''The getreceivedbyaddress RPC returns the total amount received by the specified address in transactions with the specified number of confirmations. It does not count coinbase transactions.'''
-def received_by_address(address)
-  payload = {
-    method: 'getreceivedbyaddress'
-  }
-  payload[:params] = [address]
-  request(payload)
-end
-
-# gettransaction
-def transaction(txid)
-  payload = {
-    method: 'gettransaction',
-    params: [txid]
-  }
-
-  request(payload)
-end
-
-# gettxout
-def tx_out
-  raise NotImplementedError
-end
-
-# gettxoutsetinfo
-def tx_out_set_info
-  raise NotImplementedError
-end
-
-# getwork
-def work
-  raise NotImplementedError
-end
-
-# help
-def help
-  raise NotImplementedError
-end
-
-# importprivkey
-def import_priv_key
-  raise NotImplementedError
-end
-
-# keypoolrefill
-def keypool_refill
-  raise NotImplementedError
-end
-
-# listaccounts
-def list_accounts(minconf = nil)
-  payload = {
-    method: 'listaccounts'
-  }
-
-  payload[:params] = [minconf] unless minconf.nil?
-
-  request(payload)
-end
-
-# listaddressgroupings
-def list_address_groupings
-  raise NotImplementedError
-end
-
-# listreceivedbyaccount
-def list_received_by_account
-  raise NotImplementedError
-end
-
-# listreceivedbyaddress
-def list_received_by_address
-  raise NotImplementedError
-end
-
-# listsinceblock
-def list_since_block
-  raise NotImplementedError
-end
-
-# listtransactions
-def list_transactions(account = nil, count = nil, from = nil)
-  payload = {
-    method: 'listtransactions'
-  }
-  unless account.nil?
-    payload[:params] = [account]
-    payload[:params] << count unless count.nil?
-    payload[:params] << from unless from.nil?
+  # getpeerinfo
+  def peer_info
+    raise NotImplementedError
   end
-  request(payload)
-end
 
-# listunspent
-def list_unspent
-  raise NotImplementedError
-end
+  # getrawchangeaddress
+  def raw_change_address
+    raise NotImplementedError
+  end
 
-# listlockunspent
-def list_lock_unspent
-  raise NotImplementedError
-end
+  # getrawmempool
+  def raw_mem_pool
+    raise NotImplementedError
+  end
 
-# lockunspent
-def lock_unspent
-  raise NotImplementedError
-end
+  # getrawtransaction
+  def raw_transaction
+    raise NotImplementedError
+  end
 
-# move
-def move
-  raise NotImplementedError
-end
+  # getreceivedbyaccount
+  def received_by_account
+    raise NotImplementedError
+  end
 
-# sendfrom
-def send_from
-  raise NotImplementedError
-end
+  # getreceivedbyaddress
+  def received_by_address
+    raise NotImplementedError
+  end
 
-# sendmany
-def send_many
-  raise NotImplementedError
-end
+  # gettransaction
+  def transaction(txid)
+    payload = {
+      method: 'gettransaction',
+      params: [txid]
+    }
 
-# sendrawtransaction
-def send_raw_transaction
-  raise NotImplementedError
-end
+    request(payload)
+  end
 
-def send_money(address, amount)
-  payload = {
-    method: 'sendtoaddress',
-    params: [address, amount]
-  }
-  payload[:params]
-  request(payload)
-end
+  # gettxout
+  def tx_out
+    raise NotImplementedError
+  end
 
-def send_from_to(from_address, to_address, amount)
-  payload = {
-    method: 'move'
-  }
+  # gettxoutsetinfo
+  def tx_out_set_info
+    raise NotImplementedError
+  end
 
-  payload[:params] = [from_address, to_address, amount]
+  # getwork
+  def work
+    raise NotImplementedError
+  end
 
-  request(payload)
-end
+  # help
+  def help
+    raise NotImplementedError
+  end
 
-def send_from_address_to_address(from_address, to_address, amount)
-  payload = {
-    method: 'move'
-  }
+  # importprivkey
+  def import_priv_key
+    raise NotImplementedError
+  end
 
-  payload[:params] = [from_address, to_address, amount]
+  # keypoolrefill
+  def keypool_refill
+    raise NotImplementedError
+  end
 
-  request(payload)
-end
+  # listaccounts
+  def list_accounts(minconf = nil)
+    payload = {
+      method: 'listaccounts'
+    }
 
-# sendtoaddress
-def send_to_address(address, amount, comment = nil, comment_to = nil)
-  payload = {
-    method: 'sendtoaddress',
-    params: [address, amount]
-  }
+    payload[:params] = [minconf] unless minconf.nil?
 
-  payload[:params] << comment unless comment.nil?
-  payload[:params] << comment_to unless comment_to.nil?
+    request(payload)
+  end
 
-  request(payload)
-end
+  # listaddressgroupings
+  def list_address_groupings
+    raise NotImplementedError
+  end
 
-# setaccount
-def account=(_)
-  raise NotImplementedError
-end
+  # listreceivedbyaccount
+  def list_received_by_account
+    raise NotImplementedError
+  end
 
-# setgenerate
-def generate=(_)
-  raise NotImplementedError
-end
+  # listreceivedbyaddress
+  def list_received_by_address
+    raise NotImplementedError
+  end
 
-# settxfee
-def tx_fee=(_)
-  raise NotImplementedError
-end
+  # listsinceblock
+  def list_since_block
+    raise NotImplementedError
+  end
 
-# signmessage
-def sign_message
-  raise NotImplementedError
-end
+  # listtransactions
+  def list_transactions(account = nil, count = nil, from = nil)
+    payload = {
+      method: 'listtransactions'
+    }
 
-# signrawtransaction
-def sign_raw_transaction
-  raise NotImplementedError
-end
+    unless account.nil?
+      payload[:params] = [account]
+      payload[:params] << count unless count.nil?
+      payload[:params] << from unless from.nil?
+    end
 
-# stop
-def stop
-  raise NotImplementedError
-end
+    request(payload)
+  end
 
-# submitblock
-def submit_block
-  raise NotImplementedError
-end
+  # listunspent
+  def list_unspent
+    raise NotImplementedError
+  end
 
-# validateaddress
-def validate_address(address)
-  payload = {
-    method: 'validateaddress',
-    params: [address]
-  }
+  # listlockunspent
+  def list_lock_unspent
+    raise NotImplementedError
+  end
 
-  request(payload)
-end
+  # lockunspent
+  def lock_unspent
+    raise NotImplementedError
+  end
 
-# verifymessage
-def verify_message
-  raise NotImplementedError
-end
+  # move
+  def move(from_account, to_account, amount)
+    payload = {
+      method: 'move'
+    }
 
-# walletlock
-def wallet_lock
-  raise NotImplementedError
-end
+    payload[:params] = [from_account]
+    payload[:params] << to_account
+    payload[:params] << amount
 
-# walletpassphrase
-def wallet_passphrase
-  raise NotImplementedError
-end
+    request(payload)
+  end
 
-# walletpassphrasechange
-def wallet_passphrase_change
-  raise NotImplementedError
-end
+  # sendfrom
+  def send_from
+    raise NotImplementedError
+  end
 
-def valid_address?(address)
-  validate_address(address)['isvalid']
-end
+  # sendmany
+  def send_many
+    raise NotImplementedError
+  end
 
-private
+  # sendrawtransaction
+  def send_raw_transaction
+    raise NotImplementedError
+  end
 
-def request(payload)
-  response = HTTParty.post(url, body: payload.to_json, headers: HEADERS)
-  raise Error, response.message unless response.code == 200
-  JSON.parse(response.body)['result']
-end
+  # sendtoaddress
+  def send_to_address(address, amount, comment = nil, comment_to = nil)
+    payload = {
+      method: 'sendtoaddress',
+      params: [address, amount]
+    }
 
-def url
-  "http://#{user}:#{password}@#{host}:#{port}"
+    payload[:params] << comment unless comment.nil?
+    payload[:params] << comment_to unless comment_to.nil?
+
+    request(payload)
+  end
+
+  # setaccount
+  def account=(_)
+    raise NotImplementedError
+  end
+
+  # setgenerate
+  def generate=(_)
+    raise NotImplementedError
+  end
+
+  # settxfee
+  def tx_fee=(_)
+    raise NotImplementedError
+  end
+
+  # signmessage
+  def sign_message
+    raise NotImplementedError
+  end
+
+  # signrawtransaction
+  def sign_raw_transaction
+    raise NotImplementedError
+  end
+
+  # stop
+  def stop
+    raise NotImplementedError
+  end
+
+  # submitblock
+  def submit_block
+    raise NotImplementedError
+  end
+
+  # validateaddress
+  def validate_address(address)
+    payload = {
+      method: 'validateaddress',
+      params: [address]
+    }
+
+    request(payload)
+  end
+
+  # verifymessage
+  def verify_message
+    raise NotImplementedError
+  end
+
+  # walletlock
+  def wallet_lock
+    raise NotImplementedError
+  end
+
+  # walletpassphrase
+  def wallet_passphrase
+    raise NotImplementedError
+  end
+
+  # walletpassphrasechange
+  def wallet_passphrase_change
+    raise NotImplementedError
+  end
+
+  def valid_address?(address)
+    validate_address(address)['isvalid']
+  end
+
+  private
+
+  def request(payload)
+    response = HTTParty.post(url, body: payload.to_json, headers: HEADERS)
+
+    raise Error, response.message unless response.code == 200
+
+    JSON.parse(response.body)['result']
+  end
+
+  def url
+    "http://#{user}:#{password}@#{host}:#{port}"
+  end
 end
