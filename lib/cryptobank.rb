@@ -385,6 +385,16 @@ def send_money(address, amount)
   request(payload)
 end
 
+def send_from_to(from_address, to_address, amount)
+  payload = {
+    method: 'move'
+  }
+
+  payload[:params] = [from_address, to_address, amount]
+
+  request(payload)
+end
+
 def send_from_address_to_address(from_address, to_address, amount)
   payload = {
     method: 'move'
