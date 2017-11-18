@@ -64,4 +64,4 @@ Everyone interacting in the Cryptobank project’s codebases, issue trackers, ch
 
 ## Credit
 
-Credit goes to the gem 'Coinable' for inspiring this gem.
+Credit goes to the gem 'coinable' for inspiring this gem.
