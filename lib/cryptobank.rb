@@ -497,7 +497,4 @@ end
 
 def url
   "http://#{user}:#{password}@#{host}:#{port}"
-
-end
-
 end
